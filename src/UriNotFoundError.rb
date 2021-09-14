@@ -13,17 +13,10 @@
 # You should have received a copy of the GNU General Public License
 # along with rpgd.  If not, see <http://www.gnu.org/licenses/>.
 
-require "open-uri"
-require_relative "UriNotFoundError"
-
-class UriDownloader
-  def load_as_string(uri)
-    begin
-      webpage = URI.open(uri)
-    rescue OpenURI::HTTPError => httpError
-      raise UriNotFoundError.new(uri)
-    end
-    html_string = webpage.read
-    return html_string
+class UriNotFoundError < StandardError
+  def initialize(uri)
+    @uri = uri
+    message = "Could not load " + uri + ". Check URI and network."
+    super(message)
   end
 end
