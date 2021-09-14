@@ -25,6 +25,9 @@ TEST_DOMAIN = "https://crimsonsunrise.hopto.org/test/"
 TEST_FILE_1 = TEST_DATA_FOLDER + "test1.html"
 TEST_URI_1 = TEST_DOMAIN + "test1.html"
 
+TEST_FILE_2 = TEST_DATA_FOLDER + "test2.html"
+TEST_URI_2 = TEST_DOMAIN + "test2.html"
+
 TEST_URI_NONEXISTENT = TEST_DOMAIN + "test_gnampf.html"
 
 class UriDownloaderTest < Test::Unit::TestCase
@@ -45,5 +48,11 @@ class UriDownloaderTest < Test::Unit::TestCase
     assert_raise_message(expected_message) do
       uriDownloader.load_as_string(TEST_URI_NONEXISTENT)
     end
+  end
+
+  def test_load_as_string_test2()
+    expectedString = load_expected_string_from_file(TEST_FILE_2)
+    uriDownloader = UriDownloader.new()
+    assert_equal(expectedString, uriDownloader.load_as_string(TEST_URI_2))
   end
 end
