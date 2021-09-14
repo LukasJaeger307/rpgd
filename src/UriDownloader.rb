@@ -13,8 +13,12 @@
 # You should have received a copy of the GNU General Public License
 # along with rpgd.  If not, see <http://www.gnu.org/licenses/>.
 
+require 'open-uri'
+
 class UriDownloader
   def load_as_string(uri)
-    return "Gnampf"
+    webpage = open(uri)
+    html_string = webpage.read
+    return html_string
   end
 end
