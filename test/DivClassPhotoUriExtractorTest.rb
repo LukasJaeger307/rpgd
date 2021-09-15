@@ -15,9 +15,6 @@
 
 require_relative "TestUtils"
 require_relative "../src/DivClassPhotoUriExtractor"
-require "test/unit"
-require "test/unit/assertions"
-include Test::Unit::Assertions
 
 class DivClassPhotoUriExtractorTest < Test::Unit::TestCase
   def test_extract_photo_uris_no_pictures()

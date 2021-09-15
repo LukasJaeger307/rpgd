@@ -16,9 +16,6 @@
 require_relative "TestUtils"
 require_relative "../src/UriDownloader"
 require_relative "../src/UriNotFoundError"
-require "test/unit"
-require "test/unit/assertions"
-include Test::Unit::Assertions
 
 class UriDownloaderTest < Test::Unit::TestCase
 

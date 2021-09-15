@@ -13,6 +13,10 @@
 # You should have received a copy of the GNU General Public License
 # along with rpgd.  If not, see <http://www.gnu.org/licenses/>.
 
+require "test/unit"
+require "test/unit/assertions"
+include Test::Unit::Assertions
+
 TEST_DATA_FOLDER = "test_data/"
 TEST_DOMAIN = "https://crimsonsunrise.hopto.org/test/"
 
