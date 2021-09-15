@@ -21,21 +21,21 @@ include Test::Unit::Assertions
 
 class DivClassPhotoUriExtractorTest < Test::Unit::TestCase
   def test_extract_photo_uris_no_pictures()
-    html_string = load_string_from_file(TEST_FILE_1)
+    html_string = load_string_from_file(TEST_PAGE_FILE_1)
     extractor = DivClassPhotoUriExtractor.new()
     uris = extractor.extract_photo_uris(html_string, nil)
     assert_empty(uris)
   end
 
   def test_extract_photo_uris_id_not_in_html()
-    html_string = load_string_from_file(TEST_FILE_2)
+    html_string = load_string_from_file(TEST_PAGE_FILE_2)
     extractor = DivClassPhotoUriExtractor.new()
     uris = extractor.extract_photo_uris(html_string, "image")
     assert_empty(uris)
   end
 
   def test_extract_photo_uris_all_pictures()
-    html_string = load_string_from_file(TEST_FILE_2)
+    html_string = load_string_from_file(TEST_PAGE_FILE_2)
     extractor = DivClassPhotoUriExtractor.new()
     actual_uris = extractor.extract_photo_uris(html_string, nil)
     expected_uris = ["img/flag_english.svg", "img/flag_german.svg", 
@@ -54,7 +54,7 @@ class DivClassPhotoUriExtractorTest < Test::Unit::TestCase
   end
 
   def test_extract_photo_uris_flags()
-    html_string = load_string_from_file(TEST_FILE_2)
+    html_string = load_string_from_file(TEST_PAGE_FILE_2)
     extractor = DivClassPhotoUriExtractor.new()
     actual_uris = extractor.extract_photo_uris(html_string, "flag")
     expected_uris = ["img/flag_english.svg", "img/flag_german.svg"]
@@ -62,7 +62,7 @@ class DivClassPhotoUriExtractorTest < Test::Unit::TestCase
   end
   
   def test_extract_photo_uris_labels()
-    html_string = load_string_from_file(TEST_FILE_2)
+    html_string = load_string_from_file(TEST_PAGE_FILE_2)
     extractor = DivClassPhotoUriExtractor.new()
     actual_uris = extractor.extract_photo_uris(html_string, "label")
     expected_uris = ["img/label_queenofthewest.png", "img/label_lamiedelanuit.png", 

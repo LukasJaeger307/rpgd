@@ -23,9 +23,9 @@ include Test::Unit::Assertions
 class UriDownloaderTest < Test::Unit::TestCase
 
   def test_load_as_string()
-    expectedString = load_string_from_file(TEST_FILE_1)
+    expectedString = load_string_from_file(TEST_PAGE_FILE_1)
     uriDownloader = UriDownloader.new()
-    assert_equal(expectedString, uriDownloader.load_as_string(TEST_URI_1))
+    assert_equal(expectedString, uriDownloader.load_as_string(TEST_PAGE_URI_1))
   end
 
   def test_load_as_string_wrong_uri()
@@ -37,8 +37,22 @@ class UriDownloaderTest < Test::Unit::TestCase
   end
 
   def test_load_as_string_test2()
-    expectedString = load_string_from_file(TEST_FILE_2)
+    expectedString = load_string_from_file(TEST_PAGE_FILE_2)
     uriDownloader = UriDownloader.new()
-    assert_equal(expectedString, uriDownloader.load_as_string(TEST_URI_2))
+    assert_equal(expectedString, uriDownloader.load_as_string(TEST_PAGE_URI_2))
+  end
+
+  def test_load_as_binary()
+    expectedBinary = load_binary_from_file(TEST_IMAGE_FILE_1)
+    uriDownloader = UriDownloader.new()
+    assert_equal(expectedBinary, uriDownloader.load_as_binary(TEST_IMAGE_URI_1))
+  end
+
+  def test_load_as_binary_wrong_uri()
+    uriDownloader = UriDownloader.new()
+    expected_message = "Could not load " + TEST_URI_NONEXISTENT + ". Check URI and network."
+    assert_raise_message(expected_message) do
+      uriDownloader.load_as_binary(TEST_URI_NONEXISTENT)
+    end
   end
 end

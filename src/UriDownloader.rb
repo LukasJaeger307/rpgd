@@ -18,12 +18,21 @@ require_relative "UriNotFoundError"
 
 class UriDownloader
   def load_as_string(uri)
+    content_string = load_content(uri, "r")
+    return content_string
+  end
+
+  def load_as_binary(uri)
+    content_binary = load_content(uri, "rb")
+    return content_binary
+  end
+  
+  def load_content (uri, mode)
     begin
-      webpage = URI.open(uri)
+      content = URI.open(uri, mode)
     rescue OpenURI::HTTPError => httpError
       raise UriNotFoundError.new(uri)
     end
-    html_string = webpage.read
-    return html_string
+    return content.read()
   end
 end

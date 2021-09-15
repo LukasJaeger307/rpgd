@@ -16,14 +16,24 @@
 TEST_DATA_FOLDER = "test_data/"
 TEST_DOMAIN = "https://crimsonsunrise.hopto.org/test/"
 
-TEST_FILE_1 = TEST_DATA_FOLDER + "test1.html"
-TEST_URI_1 = TEST_DOMAIN + "test1.html"
+TEST_PAGE_FILE_1 = TEST_DATA_FOLDER + "test1.html"
+TEST_PAGE_URI_1 = TEST_DOMAIN + "test1.html"
 
-TEST_FILE_2 = TEST_DATA_FOLDER + "test2.html"
-TEST_URI_2 = TEST_DOMAIN + "test2.html"
+TEST_PAGE_FILE_2 = TEST_DATA_FOLDER + "test2.html"
+TEST_PAGE_URI_2 = TEST_DOMAIN + "test2.html"
 
 TEST_URI_NONEXISTENT = TEST_DOMAIN + "test_gnampf.html"
 
+TEST_IMAGE_FILE_1 = TEST_DATA_FOLDER + "img/label_troislunes.png"
+TEST_IMAGE_URI_1 = TEST_DOMAIN + "img/label_troislunes.png"
+
 def load_string_from_file(filename)
   return IO.read(filename)
+end
+
+def load_binary_from_file(filename)
+  file = File.open(filename, "rb")
+  contents = file.read()
+  file.close()
+  return contents
 end
