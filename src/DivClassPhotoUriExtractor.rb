@@ -34,7 +34,6 @@ class DivClassPhotoUriExtractor < PhotoUriExtractor
       xpath_search_string = xpath_search_string + "[@class = \'" + extraction_criterion + "\']"
     end
     xpath_search_string = xpath_search_string + "//img/@src"
-    puts xpath_search_string
     return xpath_search_string
   end
 end

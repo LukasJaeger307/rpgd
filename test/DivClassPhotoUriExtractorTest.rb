@@ -27,18 +27,6 @@ class DivClassPhotoUriExtractorTest < Test::Unit::TestCase
     assert_empty(uris)
   end
 
-  def test_extract_photo_uris_all_pictures()
-    html_string = load_string_from_file(TEST_FILE_2)
-    extractor = DivClassPhotoUriExtractor.new()
-    uris = extractor.extract_photo_uris(html_string, nil)
-    assert_equal(5, uris.length())
-    assert_true(uris.include? "img/flag_english.svg")
-    assert_true(uris.include? "img/flag_german.svg")
-    assert_true(uris.include? "img/label_queenofthewest.png")
-    assert_true(uris.include? "img/label_lamiedelanuit.png")
-    assert_true(uris.include? "img/label_troislunes.png")
-  end
-
   def test_extract_photo_uris_id_not_in_html()
     html_string = load_string_from_file(TEST_FILE_2)
     extractor = DivClassPhotoUriExtractor.new()
@@ -46,23 +34,39 @@ class DivClassPhotoUriExtractorTest < Test::Unit::TestCase
     assert_empty(uris)
   end
 
+  def test_extract_photo_uris_all_pictures()
+    html_string = load_string_from_file(TEST_FILE_2)
+    extractor = DivClassPhotoUriExtractor.new()
+    actual_uris = extractor.extract_photo_uris(html_string, nil)
+    expected_uris = ["img/flag_english.svg", "img/flag_german.svg", 
+                     "img/label_queenofthewest.png", "img/label_lamiedelanuit.png", 
+                     "img/label_troislunes.png"]
+    assert_true(check_array_of_expected_uris(expected_uris, actual_uris))
+  end
+
+  def check_array_of_expected_uris(expected_uris, actual_uris)
+    result = true
+    result &= (expected_uris.length() == actual_uris.length())
+    expected_uris.each do |expected_uri|
+      result &= (actual_uris.include?(expected_uri))
+    end
+    return result
+  end
+
   def test_extract_photo_uris_flags()
     html_string = load_string_from_file(TEST_FILE_2)
     extractor = DivClassPhotoUriExtractor.new()
-    uris = extractor.extract_photo_uris(html_string, "flag")
-    assert_equal(2, uris.length())
-    assert_true(uris.include? "img/flag_english.svg")
-    assert_true(uris.include? "img/flag_german.svg")
+    actual_uris = extractor.extract_photo_uris(html_string, "flag")
+    expected_uris = ["img/flag_english.svg", "img/flag_german.svg"]
+    assert_true(check_array_of_expected_uris(expected_uris, actual_uris))
   end
   
   def test_extract_photo_uris_labels()
     html_string = load_string_from_file(TEST_FILE_2)
     extractor = DivClassPhotoUriExtractor.new()
-    uris = extractor.extract_photo_uris(html_string, "label")
-    assert_equal(3, uris.length())
-    assert_true(uris.include? "img/label_queenofthewest.png")
-    assert_true(uris.include? "img/label_lamiedelanuit.png")
-    assert_true(uris.include? "img/label_troislunes.png")
+    actual_uris = extractor.extract_photo_uris(html_string, "label")
+    expected_uris = ["img/label_queenofthewest.png", "img/label_lamiedelanuit.png", 
+                     "img/label_troislunes.png"]
+    assert_true(check_array_of_expected_uris(expected_uris, actual_uris))
   end
-
 end
