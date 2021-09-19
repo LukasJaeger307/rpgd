@@ -13,16 +13,23 @@
 # You should have received a copy of the GNU General Public License
 # along with rpgd.  If not, see <http://www.gnu.org/licenses/>.
 
-require_relative "XPathPhotoUriExtractor"
+require_relative "PhotoUriExtractor"
+require "nokogiri"
 
-class DivClassPhotoUriExtractor < XPathPhotoUriExtractor
-  def create_xpath_search_string(extraction_criterion)
-    xpath_search_string = "//div"
-    if extraction_criterion
-      xpath_search_string = xpath_search_string + "[@class = \'" + extraction_criterion + "\']"
+class XPathPhotoUriExtractor < PhotoUriExtractor
+  def extract_photo_uris(html_string, extraction_criterion)
+    xpath_document = Nokogiri::HTML(html_string) 
+    xpath_search_string = create_xpath_search_string(extraction_criterion)
+    xpath_results = xpath_document.xpath(xpath_search_string)
+    uris = []
+    xpath_results.each do |result|
+      uris.append(result.text)
     end
-    xpath_search_string = xpath_search_string + "//img/@src"
-    return xpath_search_string
+    return uris
+  end
+
+  def create_xpath_search_string(extraction_criterion)
+    raise "Not implemented."
   end
 end
 

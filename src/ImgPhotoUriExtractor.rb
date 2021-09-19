@@ -15,14 +15,9 @@
 
 require_relative "XPathPhotoUriExtractor"
 
-class DivClassPhotoUriExtractor < XPathPhotoUriExtractor
+class ImgPhotoUriExtractor < XPathPhotoUriExtractor
   def create_xpath_search_string(extraction_criterion)
-    xpath_search_string = "//div"
-    if extraction_criterion
-      xpath_search_string = xpath_search_string + "[@class = \'" + extraction_criterion + "\']"
-    end
-    xpath_search_string = xpath_search_string + "//img/@src"
-    return xpath_search_string
+    return "//img/@src"
   end
 end
 

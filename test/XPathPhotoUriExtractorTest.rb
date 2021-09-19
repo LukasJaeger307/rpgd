@@ -13,16 +13,16 @@
 # You should have received a copy of the GNU General Public License
 # along with rpgd.  If not, see <http://www.gnu.org/licenses/>.
 
-require_relative "XPathPhotoUriExtractor"
+require_relative "TestUtils"
+require_relative "../src/XPathPhotoUriExtractor"
 
-class DivClassPhotoUriExtractor < XPathPhotoUriExtractor
-  def create_xpath_search_string(extraction_criterion)
-    xpath_search_string = "//div"
-    if extraction_criterion
-      xpath_search_string = xpath_search_string + "[@class = \'" + extraction_criterion + "\']"
+class XPathPhotoUriExtractorTest < Test::Unit::TestCase
+  def test_extract_photo_uris_no_pictures()
+    html_string = load_string_from_file(TEST_PAGE_FILE_1)
+    extractor = XPathPhotoUriExtractor.new()
+    expected_message = "Not implemented."
+    assert_raise_message(expected_message) do
+      extractor.extract_photo_uris(html_string, nil)
     end
-    xpath_search_string = xpath_search_string + "//img/@src"
-    return xpath_search_string
   end
 end
-
