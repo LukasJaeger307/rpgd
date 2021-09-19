@@ -41,15 +41,6 @@ class DivClassPhotoUriExtractorTest < Test::Unit::TestCase
     assert_true(check_array_of_expected_uris(expected_uris, actual_uris))
   end
 
-  def check_array_of_expected_uris(expected_uris, actual_uris)
-    result = true
-    result &= (expected_uris.length() == actual_uris.length())
-    expected_uris.each do |expected_uri|
-      result &= (actual_uris.include?(expected_uri))
-    end
-    return result
-  end
-
   def test_extract_photo_uris_flags()
     html_string = load_string_from_file(TEST_PAGE_FILE_2)
     extractor = DivClassPhotoUriExtractor.new()
